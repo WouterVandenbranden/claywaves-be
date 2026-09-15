@@ -168,17 +168,23 @@ WERK = {
 # WORKSHOPS
 # ---------------------------------------------------------------------------
 
-# Agenda: voeg hier data toe in de vorm
-#     {"datum": "30 mei 2027", "titel": "Raku en Saggar", "locatie": "Clay Days — Muizen, Mechelen", "link": ""}
+# Agenda: voeg hier data toe in deze vorm. "link" en "linktekst" zijn optioneel.
+#     {"datum": "30 mei 2027", "titel": "Raku en Saggar",
+#      "locatie": "Clay Days — Muizen, Mechelen",
+#      "link": "https://...", "linktekst": "naam-van-de-site"}
 # Laat de lijst leeg als er niets gepland staat; de pagina toont dan automatisch
 # een nette melding in plaats van een lege agenda.
-#
-# LET OP — de oude site toonde nog deze data zonder jaartal (achterhaald):
-#     Raku en Saggar:        30 mei — Clay Days, Muizen (Mechelen)
-#                            13 juni — ClayMates, Gent
-#     Theepotten draaien:    6-13-20-27 mei, 10-24 juni — Cultuurhuis Merelbeke
-# Vul ze hieronder opnieuw in mét jaartal zodra de nieuwe data vastliggen.
-AGENDA = []
+# Data staan in de volgorde waarin ze hier staan — zet de eerstvolgende bovenaan.
+AGENDA = [
+    {"datum": "11 oktober 2026",
+     "titel": "Raku-workshop",
+     "locatie": "ClayMates, Gent",
+     "link": "https://www.claymates.be/keramiek-workshops",
+     "linktekst": "claymates.be"},
+    {"datum": "30 september 2026 – 24 maart 2027",
+     "titel": "Lessenreeks pottenbakken",
+     "locatie": "Merelbeke-Melle"},
+]
 
 WORKSHOPS = {
     "title": "Workshops — ClayWaves",
@@ -193,13 +199,9 @@ WORKSHOPS = {
         {
             "titel": "Raku, Obvara en Saggar",
             "banner": "raku-banner.jpg",
-            # Foto's bij deze workshop. Staat een foto bij de verkeerde workshop,
-            # verplaats dan gewoon de regel naar de andere "beelden"-lijst.
-            "beelden": [
-                ("raku-stook.jpg", "Gedraaide pot met diepe, blokkerige textuur"),
-                ("raku-rookton.jpg", "Kom met groene glazuur over een reliëfpatroon"),
-                ("raku-resultaat.jpg", "Pot met fijne craquelé-achtige oppervlaktetextuur"),
-            ],
+            # Geen losse foto's bij deze workshop — enkel de banner.
+            # Wil je er toch een paar, zet dan hier een "beelden"-lijst zoals
+            # bij "Draaien met textuur" hieronder.
             "tekst": [
                 "Breng je bisquit gebakken werkstukken mee om te glazuren en stoken gedurende "
                 "de workshop (3 stuks, max 20 cm hoog, max 20 cm diameter — meer stukken "
@@ -241,8 +243,13 @@ WORKSHOPS = {
         {
             "titel": "Draaien met textuur",
             "banner": "textuur-banner.jpg",
+            # De bestandsnamen met "raku-" zijn historisch: zo heetten ze op de
+            # oude site. De foto's zelf horen bij deze workshop.
             "beelden": [
                 ("workshop-textuur.jpg", "Bolle pot met ruwe textuur en smalle hals"),
+                ("raku-stook.jpg", "Gedraaide pot met diepe, blokkerige textuur"),
+                ("raku-rookton.jpg", "Kom met groene glazuur over een reliëfpatroon"),
+                ("raku-resultaat.jpg", "Pot met fijne craquelé-achtige oppervlaktetextuur"),
             ],
             "tekst": [
                 "We gaan dieper in op hoe je vormen met mooie, ruwe texturen kan draaien op de "
