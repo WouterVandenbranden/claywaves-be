@@ -142,6 +142,12 @@ def schrijf(pad, titel, beschrijving, romp):
     print("  geschreven:  %s" % pad)
 
 
+def banner(naam, titel):
+    """Brede bannerfoto met de sectietitel erover, zoals op de oude site."""
+    return ('<div class="banner" style="--beeld:url(%s)"><h2>%s</h2></div>'
+            % (e(beeldpad(naam)), e(titel)))
+
+
 def galerij(beelden):
     stukken = []
     for naam, alt in beelden:
@@ -260,16 +266,27 @@ def bouw_workshops():
             extra += "<h3>%s</h3>\n<ul>%s</ul>" % (
                 e(kop), "".join("<li>%s</li>" % e(p) for p in punten)
             )
-        blokken.append(
-            '<section class="sectie-lijn"><div class="wrap">'
-            '<div class="tekstblok"><h2>%s</h2>%s%s</div>'
-            '<ul class="feiten">%s</ul>'
-            '</div></section>' % (e(item["titel"]), paragrafen(item["tekst"]), extra, feiten)
-        )
+        beelden = ""
+        if item.get("beelden"):
+            beelden = '<div style="margin-top:26px">%s</div>' % galerij(item["beelden"])
 
-    strook = "".join(
-        '<img src="%s" alt="%s" loading="lazy">' % (e(beeldpad(n)), e(a)) for n, a in w["beelden"]
-    )
+        if item.get("banner"):
+            kop = banner(item["banner"], item["titel"])
+            klasse = "sectie-lijn sectie-banner"
+            titelblok = ""
+        else:
+            kop = ""
+            klasse = "sectie-lijn"
+            titelblok = "<h2>%s</h2>" % e(item["titel"])
+
+        blokken.append(
+            '<section class="%s">%s<div class="wrap">'
+            '<div class="tekstblok">%s%s%s</div>'
+            '%s'
+            '<ul class="feiten">%s</ul>'
+            '</div></section>' % (klasse, kop, titelblok, paragrafen(item["tekst"]),
+                                  extra, beelden, feiten)
+        )
 
     romp = """<section class="hero">
   <div class="wrap smal">
@@ -286,12 +303,8 @@ def bouw_workshops():
   </div>
 </section>
 
-<section class="sectie-lijn">
-  <div class="wrap"><div class="strook">%(strook)s</div></div>
-</section>
-
 %(blokken)s
-""" % {"intro": e(w["intro"]), "agenda": agenda, "strook": strook, "blokken": "\n\n".join(blokken)}
+""" % {"intro": e(w["intro"]), "agenda": agenda, "blokken": "\n\n".join(blokken)}
     schrijf("workshops.html", w["title"], w["description"], romp)
 
 
@@ -346,9 +359,9 @@ def bouw_borden():
 
 %(reeksen)s
 
-<section class="sectie-lijn">
+<section class="%(bklasse)s">%(bbanner)s
   <div class="wrap">
-    <div class="tekstblok"><h2>%(bkop)s</h2>%(bintro)s</div>
+    <div class="tekstblok">%(btitel)s%(bintro)s</div>
     <div class="kaarten" style="margin-top:26px">%(punten)s</div>
     <h3 style="margin-top:44px">%(skop)s</h3>
     <ol class="stappen">%(stappen)s</ol>
@@ -358,7 +371,10 @@ def bouw_borden():
 </section>
 """ % {
         "intro": e(b["intro"]), "reeksen": "\n\n".join(reeksen),
-        "bkop": e(best["kop"]), "bintro": paragrafen(best["intro"]),
+        "bklasse": "sectie-lijn sectie-banner" if best.get("banner") else "sectie-lijn",
+        "bbanner": banner(best["banner"], best["kop"]) if best.get("banner") else "",
+        "btitel": "" if best.get("banner") else "<h2>%s</h2>" % e(best["kop"]),
+        "bintro": paragrafen(best["intro"]),
         "punten": punten, "skop": e(best["stappen_kop"]), "stappen": stappen,
         "slot": e(best["slot"]),
     }
@@ -474,9 +490,14 @@ def main():
 def controleer_beelden():
     nodig = ["claywaves-logo.jpg", C.HOME["hero_beeld"]]
     nodig += [s["beeld"] for s in C.HOME["secties"] if s.get("beeld")]
-    nodig += [n for n, _ in C.WORKSHOPS["beelden"]]
+    for item in C.WORKSHOPS["items"]:
+        nodig += [n for n, _ in item.get("beelden", [])]
+        if item.get("banner"):
+            nodig.append(item["banner"])
     for r in C.BORDEN["reeksen"]:
         nodig += [n for n, _ in r["beelden"]]
+    if C.BORDEN["bestellen"].get("banner"):
+        nodig.append(C.BORDEN["bestellen"]["banner"])
     return [n for n in dict.fromkeys(nodig) if not (ROOT / "images" / n).exists()]
 
 

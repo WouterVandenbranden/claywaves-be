@@ -138,6 +138,33 @@ p:last-child { margin-bottom: 0; }
 .hero-beeld { position: relative; }
 .hero-beeld img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius); }
 
+/* ------------------------------------------------------------- banners */
+
+.banner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 32 / 9;
+  min-height: 180px;
+  max-height: 380px;
+  background-color: var(--papier-diep);
+  background-image: var(--beeld);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: grid;
+  place-items: center;
+  margin-bottom: clamp(26px, 4vw, 46px);
+}
+.banner h2 {
+  margin: 0;
+  background: rgba(251, 249, 245, .93);
+  padding: 12px clamp(18px, 4vw, 44px);
+  text-align: center;
+  max-width: min(90%, 760px);
+  border-radius: var(--radius);
+}
+.sectie-banner { padding-top: 0; }
+
 /* ------------------------------------------------------------- secties */
 
 section { padding: clamp(34px, 5vw, 58px) 0; }

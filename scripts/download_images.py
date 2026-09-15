@@ -30,10 +30,10 @@ BEELDEN = [
     ("ClayWaves logo.jpg",                          "claywaves-logo.jpg",     ""),
     ("2023-09-01 21.02.14.jpg",                     "atelier-werk.jpg",       ""),
     ("WhatsApp Image 2023-08-27 at 15.50.30.jpeg",  "werk-detail.jpg",        ""),
-    ("2023-05-21 12.28.02-1.jpg",                   "raku-stook.jpg",         "&rotate=90"),
-    ("2023-06-11 19.40.22.jpg",                     "raku-rookton.jpg",       ""),
+    ("2023-05-21 12.28.02-1.jpg",                   "raku-stook.jpg",         ""),
+    ("2023-06-11 19.40.22.jpg",                     "raku-rookton.jpg",       "&rotate=90"),
     ("2023-06-11 19.39.23.jpg",                     "raku-resultaat.jpg",     "&rotate=90"),
-    ("2024-09-15 09.04.28-1.jpg",                   "workshop-textuur.jpg",   "&rotate=90"),
+    ("2024-09-15 09.04.28-1.jpg",                   "workshop-textuur.jpg",   ""),
 
     ("graniet overzicht.jpg",                       "graniet-overzicht.jpg",  ""),
     ("graniet gestapeld.jpg",                       "graniet-gestapeld.jpg",  ""),
@@ -56,10 +56,23 @@ BEELDEN = [
     ("natuur rivierbodem.jpg",                      "natuur-rivierbodem.jpg", ""),
     ("natuur rots.jpg",                             "natuur-rots.jpg",        ""),
     ("natuur strand.jpg",                           "natuur-strand.jpg",      ""),
+
+    # Bannerfoto's — stonden op de oude site als achtergrond boven een sectie.
+    # Alles wat op "-banner.jpg" eindigt wordt breed opgehaald in plaats van vierkant.
+    ("2023-04-16 18.15.19.jpg",                     "raku-banner.jpg",        ""),
+    ("2023-05-04 22.02.54.jpg",                     "textuur-banner.jpg",     ""),
+    ("IMG_0096 2.jpg",                              "borden-banner.jpg",      ""),
 ]
 
-# Maximaal 1600 px breed/hoog — ruim genoeg voor het web, en veel lichter.
+# Maximaal 1600 px — ruim genoeg voor het web, en veel lichter.
+# LET OP: one.com levert hiermee een vierkante uitsnede (1600x1600), gecentreerd.
+# Voor deze site geeft dat geen zichtbaar verschil, want alle foto's worden
+# vierkant of bijna-vierkant getoond. Wil je de volledige beelduitsnede, zet dan
+# je eigen originelen in images/ onder dezelfde bestandsnamen.
 PARAMS = "?withoutEnlargement&resize=1600,1600&quality=85"
+
+# Banners zijn breed, niet vierkant.
+PARAMS_BANNER = "?withoutEnlargement&resize=2200,1000&quality=82"
 
 
 def plaatshouders():
@@ -81,7 +94,8 @@ def main():
             print("  bestaat al:  %s" % naam)
             ok += 1
             continue
-        url = BASIS + urllib.parse.quote(bron) + PARAMS + extra
+        basis_params = PARAMS_BANNER if naam.endswith("-banner.jpg") else PARAMS
+        url = BASIS + urllib.parse.quote(bron) + basis_params + extra
         try:
             verzoek = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
             with urllib.request.urlopen(verzoek, timeout=45) as r:

@@ -189,15 +189,17 @@ WORKSHOPS = {
              "wouter@claywaves.be.",
     "agenda_leeg": "Er staan op dit moment geen publieke data gepland. Wil je een workshop "
                    "hosten of op de hoogte blijven van nieuwe data? Stuur een bericht.",
-    "beelden": [
-        ("raku-stook.jpg", "Raku-stook: roodgloeiende potten uit de oven"),
-        ("raku-rookton.jpg", "Potten in de Raku-rookton"),
-        ("raku-resultaat.jpg", "Resultaat van een Raku-stook"),
-        ("workshop-textuur.jpg", "Draaien met textuur op de draaischijf"),
-    ],
     "items": [
         {
             "titel": "Raku, Obvara en Saggar",
+            "banner": "raku-banner.jpg",
+            # Foto's bij deze workshop. Staat een foto bij de verkeerde workshop,
+            # verplaats dan gewoon de regel naar de andere "beelden"-lijst.
+            "beelden": [
+                ("raku-stook.jpg", "Gedraaide pot met diepe, blokkerige textuur"),
+                ("raku-rookton.jpg", "Kom met groene glazuur over een reliëfpatroon"),
+                ("raku-resultaat.jpg", "Pot met fijne craquelé-achtige oppervlaktetextuur"),
+            ],
             "tekst": [
                 "Breng je bisquit gebakken werkstukken mee om te glazuren en stoken gedurende "
                 "de workshop (3 stuks, max 20 cm hoog, max 20 cm diameter — meer stukken "
@@ -238,6 +240,10 @@ WORKSHOPS = {
         },
         {
             "titel": "Draaien met textuur",
+            "banner": "textuur-banner.jpg",
+            "beelden": [
+                ("workshop-textuur.jpg", "Bolle pot met ruwe textuur en smalle hals"),
+            ],
             "tekst": [
                 "We gaan dieper in op hoe je vormen met mooie, ruwe texturen kan draaien op de "
                 "draaischijf. Tijdens de workshop kruipen we achter de draaischijf en gaan we "
@@ -357,6 +363,7 @@ BORDEN = {
     ],
     "bestellen": {
         "kop": "Wat moet je weten als je wil bestellen",
+        "banner": "borden-banner.jpg",
         "intro": [
             "Bij ClayWaves koop je ambachtelijk vakmanschap. Onze borden worden met liefde en "
             "zorg met de hand gemaakt, speciaal voor jou. We hebben geen voorraad liggen, "

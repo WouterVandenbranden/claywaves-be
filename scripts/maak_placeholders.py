@@ -61,15 +61,23 @@ def main():
     DOEL.mkdir(exist_ok=True)
     nodig = ["claywaves-logo.jpg", C.HOME["hero_beeld"]]
     nodig += [s["beeld"] for s in C.HOME["secties"] if s.get("beeld")]
-    nodig += [n for n, _ in C.WORKSHOPS["beelden"]]
+    for item in C.WORKSHOPS["items"]:
+        nodig += [n for n, _ in item.get("beelden", [])]
+        if item.get("banner"):
+            nodig.append(item["banner"])
     for r in C.BORDEN["reeksen"]:
         nodig += [n for n, _ in r["beelden"]]
+    if C.BORDEN["bestellen"].get("banner"):
+        nodig.append(C.BORDEN["bestellen"]["banner"])
 
     gemaakt = []
     for naam in dict.fromkeys(nodig):
         if (DOEL / naam).exists():
             continue
-        maak(naam)
+        if naam.endswith("-banner.jpg"):
+            maak(naam, 1800, 560)
+        else:
+            maak(naam)
         gemaakt.append(naam)
 
     if gemaakt:
