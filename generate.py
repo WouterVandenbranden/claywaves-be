@@ -167,8 +167,13 @@ def schrijf(pad, titel, beschrijving, romp):
 
 
 def banner(naam, titel):
-    """Brede bannerfoto met de sectietitel erover, zoals op de oude site."""
-    return ('<div class="banner" style="--beeld:url(%s)"><h2>%s</h2></div>'
+    """Brede bannerfoto met de sectietitel erover, zoals op de oude site.
+
+    De foto staat rechtstreeks in het style-attribuut, niet via een
+    CSS-variabele: een relatief pad in een variabele wordt door de browser
+    opgezocht vanaf assets/style.css en dus vanuit de verkeerde map.
+    """
+    return ('<div class="banner" style="background-image:url(%s)"><h2>%s</h2></div>'
             % (e(beeldpad(naam)), e(titel)))
 
 
@@ -268,10 +273,15 @@ def bouw_workshops():
     if C.AGENDA:
         rijen = []
         for a in C.AGENDA:
+            plek = e(a.get("locatie", ""))
+            if a.get("link"):
+                plek += ' — <a href="%s" rel="noopener">%s</a>' % (
+                    e(a["link"]), e(a.get("linktekst") or a["link"])
+                )
             rijen.append(
                 '<li><span class="datum">%s</span><span><strong>%s</strong>'
                 '<span class="plek"><br>%s</span></span></li>'
-                % (e(a["datum"]), e(a["titel"]), e(a.get("locatie", "")))
+                % (e(a["datum"]), e(a["titel"]), plek)
             )
         agenda = '<ul class="agenda">\n  %s\n</ul>' % "\n  ".join(rijen)
     else:
