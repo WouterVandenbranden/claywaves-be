@@ -11,6 +11,7 @@ Je hoeft dit script niet aan te raken om teksten, prijzen of workshopdata te
 wijzigen — dat doe je in content/content.py.
 """
 
+import hashlib
 import html
 import sys
 from datetime import date
@@ -35,8 +36,29 @@ def paragrafen(regels):
     return "\n".join("<p>%s</p>" % e(r) for r in regels)
 
 
+_versies = {}
+
+
+def versie(pad):
+    """Hangt een korte code op basis van de bestandsinhoud achter een pad.
+
+    Browsers en de CDN mogen CSS, JavaScript en foto's lang bewaren (dat staat
+    zo in netlify.toml). Zonder zo'n code zouden bezoekers na een wijziging nog
+    dagenlang de oude versie zien. Verandert het bestand, dan verandert de code,
+    en haalt de browser het opnieuw op.
+    """
+    if pad not in _versies:
+        bestand = ROOT / pad
+        if bestand.exists():
+            code = hashlib.md5(bestand.read_bytes()).hexdigest()[:8]
+            _versies[pad] = "%s?v=%s" % (pad, code)
+        else:
+            _versies[pad] = pad
+    return _versies[pad]
+
+
 def beeldpad(naam):
-    return "images/%s" % naam
+    return versie("images/%s" % naam)
 
 
 # --------------------------------------------------------------------------- chrome
@@ -69,7 +91,7 @@ def head(titel, beschrijving, pad):
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400;500;600&display=swap">
-  <link rel="stylesheet" href="assets/style.css">%(gc)s
+  <link rel="stylesheet" href="%(css)s">%(gc)s
 </head>
 <body>
 <a class="skip" href="#inhoud">Naar de inhoud</a>
@@ -79,6 +101,7 @@ def head(titel, beschrijving, pad):
         "beschrijving": e(beschrijving),
         "domein": e(S["domein"]),
         "pad": e("" if pad == "index.html" else pad),
+        "css": e(versie("assets/style.css")),
         "gc": gc,
     }
 
@@ -91,7 +114,7 @@ def header(actief):
     return """<header class="kop">
   <div class="wrap kop-in">
     <a class="merk" href="index.html">
-      <img src="images/claywaves-logo.jpg" alt="" width="38" height="38">
+      <img src="%s" alt="" width="38" height="38">
       <span class="merk-naam">ClayWaves<span class="merk-sub">%s</span></span>
     </a>
     <button class="nav-knop" type="button" aria-expanded="false" aria-controls="hoofdnav">Menu</button>
@@ -101,7 +124,7 @@ def header(actief):
   </div>
 </header>
 <main id="inhoud">
-""" % (e(S["ondertitel"]), "\n      ".join(links))
+""" % (e(beeldpad("claywaves-logo.jpg")), e(S["ondertitel"]), "\n      ".join(links))
 
 
 def footer():
@@ -125,7 +148,7 @@ def footer():
   <img alt="">
   <p class="bijschrift"></p>
 </dialog>
-<script src="assets/script.js" defer></script>
+<script src="%(js)s" defer></script>
 </body>
 </html>
 """ % {
@@ -133,6 +156,7 @@ def footer():
         "tel": e(S["telefoon"]), "tel_link": e(S["telefoon_link"]), "mail": e(S["email"]),
         "links": links, "insta": e(S["instagram"]), "portfolio": e(S["portfolio_url"]),
         "jaar": date.today().year,
+        "js": e(versie("assets/script.js")),
     }
 
 
