@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="nl-BE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Contact — ClayWaves</title>
+  <meta name="description" content="Contacteer ClayWaves — Wouter Vandenbranden, mSENSE bv, Heusden.">
+  <link rel="canonical" href="https://www.claywaves.be/contact.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ClayWaves">
+  <meta property="og:title" content="Contact — ClayWaves">
+  <meta property="og:description" content="Contacteer ClayWaves — Wouter Vandenbranden, mSENSE bv, Heusden.">
+  <meta property="og:url" content="https://www.claywaves.be/contact.html">
+  <meta property="og:locale" content="nl_BE">
+  <meta property="og:image" content="https://www.claywaves.be/images/claywaves-logo.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="images/claywaves-logo.jpg">
+  <link rel="apple-touch-icon" href="images/claywaves-logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip" href="#inhoud">Naar de inhoud</a>
+<header class="kop">
+  <div class="wrap kop-in">
+    <a class="merk" href="index.html">
+      <img src="images/claywaves-logo.jpg" alt="" width="38" height="38">
+      <span class="merk-naam">ClayWaves<span class="merk-sub">Keramiek atelier</span></span>
+    </a>
+    <button class="nav-knop" type="button" aria-expanded="false" aria-controls="hoofdnav">Menu</button>
+    <nav class="nav" id="hoofdnav" aria-label="Hoofdnavigatie">
+      <a href="index.html">Home</a>
+      <a href="werk.html">Werk</a>
+      <a href="workshops.html">Workshops</a>
+      <a href="borden.html">Borden op bestelling</a>
+      <a href="contact.html" aria-current="page">Contact</a>
+    </nav>
+  </div>
+</header>
+<main id="inhoud">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="oogje">Contact</p>
+      <h1>Neem contact op</h1>
+      <p class="lead">Een vraag over een workshop, een bestelling of iets anders? Stuur een bericht, of bel gerust.</p>
+
+      <form class="contact" name="contact" method="POST" data-netlify="true"
+            netlify-honeypot="bot-veld" action="/bedankt.html" style="margin-top:30px">
+        <input type="hidden" name="form-name" value="contact">
+        <p class="verborgen"><label>Laat dit veld leeg <input name="bot-veld"></label></p>
+        <label>Naam *<input type="text" name="naam" required autocomplete="name"></label>
+        <label>E-mail *<input type="email" name="email" required autocomplete="email"></label>
+        <label>Onderwerp *<input type="text" name="onderwerp" required></label>
+        <label>Bericht *<textarea name="bericht" required></textarea></label>
+        <p style="margin:0"><button class="knop" type="submit">Verstuur</button></p>
+      </form>
+    </div>
+
+    <div>
+      <ul class="gegevens">
+        <li><span class="etiket">Telefoon</span><a href="tel:+32476484803">0476 484803</a></li>
+        <li><span class="etiket">E-mail</span><a href="mailto:wouter@claywaves.be">wouter@claywaves.be</a></li>
+        <li><span class="etiket">Adres</span>Steilvoordehof 7 — 9070 Heusden</li>
+        <li><span class="etiket">IBAN</span>BE95 0688 9593 3958</li>
+        <li><span class="etiket">BTW</span>BE0849.727.819 (mSENSE bv)</li>
+        <li><span class="etiket">Instagram</span><a href="https://www.instagram.com/claywaves_atelier" rel="noopener">@claywaves_atelier</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="voet">
+  <div class="wrap voet-in">
+    <div>
+      <p><strong>Wouter Vandenbranden — mSENSE bv</strong><br>Steilvoordehof 7 — 9070 Heusden<br>BTW BE0849.727.819</p>
+      <p><a href="tel:+32476484803">0476 484803</a> · <a href="mailto:wouter@claywaves.be">wouter@claywaves.be</a></p>
+    </div>
+    <div>
+      <nav class="voet-nav" aria-label="Voettekst"><a href="index.html">Home</a> <a href="werk.html">Werk</a> <a href="workshops.html">Workshops</a> <a href="borden.html">Borden op bestelling</a> <a href="contact.html">Contact</a></nav>
+      <p style="margin-top:14px"><a href="https://www.instagram.com/claywaves_atelier" rel="noopener">Instagram</a> · <a href="https://www.woutervandenbranden.be" rel="noopener">woutervandenbranden.be</a></p>
+      <p>© 2026 ClayWaves — alle rechten voorbehouden</p>
+    </div>
+  </div>
+</footer>
+<dialog class="licht" id="lichtbak" aria-label="Vergrote afbeelding">
+  <button class="sluit" type="button" aria-label="Sluiten">&times;</button>
+  <img alt="">
+  <p class="bijschrift"></p>
+</dialog>
+<script src="assets/script.js" defer></script>
+</body>
+</html>

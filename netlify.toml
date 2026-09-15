@@ -1,0 +1,46 @@
+[build]
+  publish = "."
+  # De HTML staat mee in de repo, dus een build is niet strikt nodig.
+  # Zolang de oude one.com-site nog online staat, halen we tijdens de build
+  # de echte foto's op en bouwen we de pagina's opnieuw. Mislukt dat, dan
+  # blijft de meegecommitte HTML gewoon staan (vandaar de '|| true').
+  command = "python3 scripts/download_images.py || true; python3 generate.py || true"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+# Oude one.com-URL's blijven werken
+[[redirects]]
+  from = "/workshop"
+  to = "/workshops.html"
+  status = 301
+
+[[redirects]]
+  from = "/borden-op-bestelling"
+  to = "/borden.html"
+  status = 301
+
+[[redirects]]
+  from = "/claywaves-art"
+  to = "/werk.html"
+  status = 301
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 301
