@@ -20,7 +20,7 @@ SITE = {
     "adres": "Steilvoordehof 7 — 9070 Heusden",
     "portfolio_url": "https://www.woutervandenbranden.be",
     # GoatCounter: vul hier je sitecode in (bv. "claywaves"), leeg = geen statistieken
-    "goatcounter": "",
+    "goatcounter": "claywaves",
 }
 
 NAV = [
